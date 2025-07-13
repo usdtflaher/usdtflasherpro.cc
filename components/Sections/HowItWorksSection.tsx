@@ -11,20 +11,20 @@ const HowItWorksSection = () => {
   const steps = [
     {
       icon: CreditCard,
-      title: "Buy the License Online",
-      description: "Select your preferred plan and complete the secure payment process. Choose from our 2-year license, lifetime license, or demo version.",
+      title: "Purchase Flash USDT Software License",
+      description: "Select your preferred plan and complete the secure payment process. Choose from our demo version, 2-year license, or lifetime access to our advanced USDT flash software.",
       features: ["Secure payment gateway", "Multiple payment options", "Instant order confirmation"]
     },
     {
       icon: Mail,
-      title: "Receive License & Software",
-      description: "After payment confirmation, your license key and software download link are instantly sent to your email address.",
+      title: "Download USDT Flash Software",
+      description: "After payment confirmation, your license key and flash USDT software download link are instantly sent to your email address with complete installation instructions.",
       features: ["Instant email delivery", "Download links included", "License key provided"]
     },
     {
       icon: Play,
-      title: "Activate & Start Flashing",
-      description: "Launch the software, enter your license key to activate, and start flashing USDT across supported exchanges immediately.",
+      title: "Start Flash USDT Operations",
+      description: "Launch the software, enter your license key to activate, and start creating spendable USDT tokens across supported exchanges immediately with our user-friendly interface.",
       features: ["One-click activation", "Instant access", "Ready to use interface"]
     }
   ]
@@ -40,11 +40,11 @@ const HowItWorksSection = () => {
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-heading text-text-primary mb-4">
-            How It <span className="text-gradient">Works</span>
+            How Our <span className="text-gradient">USDT Flash Software</span> Works
           </h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Get started with USDT flashing in just 3 simple steps. Our streamlined process 
-            ensures you can start using the software within minutes.
+            Get started with our flash USDT software in just 3 simple steps. Our streamlined process 
+            ensures you can start creating spendable USDT tokens within minutes.
           </p>
         </motion.div>
 
@@ -104,14 +104,14 @@ const HowItWorksSection = () => {
         >
           <div className="card max-w-2xl mx-auto">
             <h3 className="text-2xl font-semibold text-text-primary mb-4">
-              Ready to Get Started?
+              Ready to Start Using Flash USDT Software?
             </h3>
             <p className="text-text-secondary mb-6">
-              Join thousands of users who trust our USDT flashing software for their crypto operations.
+              Join thousands of users who trust our USDT flash software for their cryptocurrency arbitrage operations and exchange trading.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/pricing" className="btn-primary">
-                View Pricing Plans
+                Get USDT Flash Software
               </a>
               <a href="#features" className="btn-secondary">
                 Explore Features

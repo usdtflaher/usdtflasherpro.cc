@@ -1,21 +1,28 @@
+# *
 User-agent: *
 Allow: /
-
-# Sitemap location
-Sitemap: https://usdtflasherpro.cc/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
-
-# Disallow admin areas (if any)
+Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
-Disallow: /.well-known/
 
-# Allow important pages
-Allow: /
-Allow: /pricing
-Allow: /features
-Allow: /contact
-Allow: /how-it-works
-Allow: /faq 
+# GPTBot
+User-agent: GPTBot
+Disallow: /
+
+# ChatGPT-User
+User-agent: ChatGPT-User
+Disallow: /
+
+# CCBot
+User-agent: CCBot
+Disallow: /
+
+# anthropic-ai
+User-agent: anthropic-ai
+Disallow: /
+
+# Host
+Host: https://usdtflasherpro.cc
+
+# Sitemaps
+Sitemap: https://usdtflasherpro.cc/sitemap.xml

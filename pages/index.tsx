@@ -1,5 +1,6 @@
 import Layout from '@/components/Layout/Layout'
 import HeroSection from '@/components/Sections/HeroSection'
+import IntroSection from '@/components/Sections/IntroSection'
 import HowItWorksSection from '@/components/Sections/HowItWorksSection'
 import PricingSection from '@/components/Sections/PricingSection'
 import FeaturesSection from '@/components/Sections/FeaturesSection'
@@ -11,11 +12,12 @@ import ContactSection from '@/components/Sections/ContactSection'
 export default function Home() {
   return (
     <Layout
-      title="USDT Flasher Pro - Flash USDT Across Exchanges Instantly"
-      description="The most advanced USDT flashing software on the market. Fast, secure, and easy to use with full blockchain integration and multi-exchange support."
+      title="Flash USDT Software | USDTFlasherPro – Secure Arbitrage Tools"
+      description="Flash USDT across multiple exchanges using USDTFlasherPro – the most advanced, secure, and reliable flash USDT software. Fully swappable, tradable, and P2P-compatible."
     >
       <>
         <HeroSection />
+        <IntroSection />
         <HowItWorksSection />
         <PricingSection />
         <FeaturesSection />
