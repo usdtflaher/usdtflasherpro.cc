@@ -1,0 +1,158 @@
+{
+    "designSystem": {
+      "name": "CryptoHive UI Kit",
+      "theme": {
+        "mode": "dark",
+        "primaryColor": "#00FFB3",
+        "accentColor": "#FFD700",
+        "background": "#0D0D0F",
+        "cardBackground": "#131417",
+        "textColorPrimary": "#FFFFFF",
+        "textColorSecondary": "#A0A0A5",
+        "buttonTextColor": "#000000",
+        "successColor": "#00FF94",
+        "dangerColor": "#FF4C4C",
+        "infoColor": "#007BFF"
+      },
+      "typography": {
+        "fontFamily": "Inter, sans-serif",
+        "headingFontWeight": 700,
+        "bodyFontWeight": 400,
+        "headingSizes": {
+          "h1": "3rem",
+          "h2": "2.25rem",
+          "h3": "1.5rem"
+        },
+        "bodyTextSize": "1rem",
+        "buttonTextSize": "1rem",
+        "textTransform": "none",
+        "letterSpacing": "normal"
+      },
+      "layout": {
+        "gridSystem": "12-column responsive grid",
+        "spacingScale": [4, 8, 16, 24, 32, 48],
+        "maxContainerWidth": "1280px",
+        "sectionPadding": "64px 32px",
+        "cardPadding": "24px",
+        "borderRadius": "12px"
+      },
+      "components": {
+        "navbar": {
+          "background": "#0D0D0F",
+          "padding": "16px 32px",
+          "logoColor": "#00FFB3",
+          "navLinkColor": "#FFFFFF",
+          "navLinkHoverColor": "#00FFB3",
+          "ctaButton": {
+            "background": "#00FFB3",
+            "color": "#000000",
+            "borderRadius": "8px",
+            "padding": "10px 20px"
+          }
+        },
+        "heroSection": {
+          "background": "#0D0D0F",
+          "alignment": "centered",
+          "textAlign": "center",
+          "headingColor": "#00FFB3",
+          "subTextColor": "#A0A0A5",
+          "buttons": [
+            {
+              "style": "solid",
+              "background": "#00FFB3",
+              "color": "#000000"
+            },
+            {
+              "style": "outline",
+              "borderColor": "#00FFB3",
+              "color": "#00FFB3"
+            }
+          ],
+          "icons": "floating, subtle glow, minimal contrast"
+        },
+        "exchangeWidget": {
+          "background": "#131417",
+          "borderRadius": "12px",
+          "padding": "24px",
+          "inputFields": {
+            "background": "#1E1E22",
+            "textColor": "#FFFFFF",
+            "borderRadius": "8px"
+          },
+          "buyButton": {
+            "background": "#00FFB3",
+            "color": "#000000",
+            "borderRadius": "8px"
+          },
+          "tabs": {
+            "activeColor": "#00FFB3",
+            "inactiveColor": "#A0A0A5"
+          }
+        },
+        "marketSection": {
+          "cardBackground": "#131417",
+          "coinNameColor": "#FFFFFF",
+          "priceColor": "#FFFFFF",
+          "changePositiveColor": "#00FF94",
+          "changeNegativeColor": "#FF4C4C",
+          "chartColor": "#00FFB3",
+          "tradeButton": {
+            "background": "transparent",
+            "border": "1px solid #00FFB3",
+            "color": "#00FFB3"
+          }
+        },
+        "educationalSection": {
+          "background": "#0D0D0F",
+          "card": {
+            "background": "#131417",
+            "headingColor": "#FFFFFF",
+            "textColor": "#A0A0A5",
+            "button": {
+              "background": "#00FFB3",
+              "color": "#000000"
+            }
+          }
+        },
+        "faqSection": {
+          "background": "#0D0D0F",
+          "textColor": "#FFFFFF",
+          "questionStyle": {
+            "fontWeight": 600
+          },
+          "answerStyle": {
+            "color": "#A0A0A5"
+          }
+        },
+        "footer": {
+          "background": "#0A0A0D",
+          "textColor": "#A0A0A5",
+          "linkColor": "#FFFFFF",
+          "inputBackground": "#1E1E22",
+          "inputBorderColor": "#333",
+          "subscribeButton": {
+            "background": "#00FFB3",
+            "color": "#000000"
+          }
+        }
+      },
+      "effects": {
+        "hoverGlow": {
+          "color": "#00FFB3",
+          "intensity": "soft"
+        },
+        "buttonShadow": "0 0 10px rgba(0,255,179,0.6)",
+        "cardShadow": "0 2px 10px rgba(0,0,0,0.3)"
+      },
+      "icons": {
+        "style": "minimal",
+        "type": "outline with subtle fill",
+        "animation": "hover-scale or glow"
+      },
+      "accessibility": {
+        "contrastRatio": "WCAG AA compliant",
+        "focusOutline": "custom green glow on interactive elements",
+        "keyboardNavigation": true
+      }
+    }
+  }
