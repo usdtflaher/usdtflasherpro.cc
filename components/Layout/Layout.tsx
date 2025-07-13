@@ -19,7 +19,7 @@ const Layout = ({ children, title, description }: LayoutProps) => {
       <Head>
         <title>{siteTitle}</title>
         <meta name="description" content={siteDescription} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content="USDT Flash Software, Flash USDT Instantly, USDT Arbitrage Tool, Spendable USDT Flash, P2P Crypto Flashing" />
         
@@ -65,9 +65,9 @@ const Layout = ({ children, title, description }: LayoutProps) => {
         />
       </Head>
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background overflow-x-hidden w-full">
         <Navbar />
-        <main className="pt-20">
+        <main className="pt-20 w-full">
           {children}
         </main>
         <Footer />

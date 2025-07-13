@@ -16,19 +16,19 @@ const Navbar = () => {
   ]
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-gray-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-gray-800 w-full">
       <div className="container-max">
-        <div className="flex items-center justify-between px-8 py-4">
+        <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-              <span className="text-button-text font-bold text-lg">UP</span>
+          <Link href="/" className="flex items-center space-x-2 flex-shrink-0">
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
+              <span className="text-button-text font-bold text-sm md:text-lg">UP</span>
             </div>
-            <span className="text-primary font-bold text-xl">USDTFlasherPro</span>
+            <span className="text-primary font-bold text-lg md:text-xl">USDTFlasherPro</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-12">
+          <div className="hidden lg:flex items-center space-x-8 xl:space-x-12">
             {navItems.map((item) => (
               item.external ? (
                 <a
@@ -36,7 +36,7 @@ const Navbar = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-text-primary hover:text-primary transition-colors duration-300 font-medium"
+                  className="text-text-primary hover:text-primary transition-colors duration-300 font-medium text-sm xl:text-base whitespace-nowrap"
                 >
                   {item.name}
                 </a>
@@ -44,7 +44,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-text-primary hover:text-primary transition-colors duration-300 font-medium"
+                  className="text-text-primary hover:text-primary transition-colors duration-300 font-medium text-sm xl:text-base whitespace-nowrap"
                 >
                   {item.name}
                 </Link>
@@ -53,15 +53,15 @@ const Navbar = () => {
           </div>
 
           {/* CTA Button */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link href="/pricing" className="btn-primary">
+          <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
+            <Link href="/pricing" className="btn-primary text-sm xl:text-base px-4 xl:px-6">
               Buy License
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-text-primary hover:text-primary transition-colors duration-300"
+            className="lg:hidden text-text-primary hover:text-primary transition-colors duration-300 flex-shrink-0 p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -74,9 +74,9 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-card-bg border-t border-gray-800"
+            className="lg:hidden bg-card-bg border-t border-gray-800 w-full"
           >
-            <div className="px-8 py-6 space-y-4">
+            <div className="py-6 space-y-4">
               {navItems.map((item) => (
                 item.external ? (
                   <a
@@ -84,7 +84,7 @@ const Navbar = () => {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block text-text-primary hover:text-primary transition-colors duration-300 font-medium"
+                    className="block text-text-primary hover:text-primary transition-colors duration-300 font-medium py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -93,7 +93,7 @@ const Navbar = () => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block text-text-primary hover:text-primary transition-colors duration-300 font-medium"
+                    className="block text-text-primary hover:text-primary transition-colors duration-300 font-medium py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
@@ -101,8 +101,8 @@ const Navbar = () => {
                 )
               ))}
               <Link
-                href="#pricing"
-                className="btn-primary block text-center mt-4"
+                href="/pricing"
+                className="btn-primary block text-center mt-6 mx-auto w-full max-w-xs"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Buy License

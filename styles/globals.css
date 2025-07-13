@@ -6,11 +6,19 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    width: 100%;
   }
   
   body {
     @apply bg-background text-text-primary font-sans antialiased;
     overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  * {
+    box-sizing: border-box;
   }
 }
 
@@ -40,11 +48,11 @@
   }
   
   .section-padding {
-    @apply py-20 px-8 md:py-32 md:px-16;
+    @apply py-20 px-4 md:px-8 lg:px-16;
   }
   
   .container-max {
-    @apply max-w-container mx-auto;
+    @apply max-w-container mx-auto px-4 md:px-6 lg:px-8;
   }
   
   .glow-effect {
@@ -81,6 +89,12 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* Prevent horizontal scroll on all sections */
+  section {
+    overflow-x: hidden;
+    width: 100%;
   }
 }
 
