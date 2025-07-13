@@ -171,7 +171,7 @@ const DemoSection = () => {
             {/* CTA */}
             <div className="mt-8">
               <a href="/pricing" className="btn-primary inline-flex items-center gap-2">
-                Try Demo Version
+                Try Demo License
                 <ArrowRight size={16} />
               </a>
             </div>
