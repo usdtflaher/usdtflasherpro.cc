@@ -73,6 +73,8 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
       
       setPaymentInfo(updatedPaymentInfo)
 
+      console.log('Sending notification with data:', { userInfo, paymentInfo: updatedPaymentInfo })
+
       // Send notification email
       const response = await fetch('/api/send-notification', {
         method: 'POST',
@@ -85,14 +87,26 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
         })
       })
 
+      console.log('API response status:', response.status)
+      
+      const responseData = await response.json()
+      console.log('API response data:', responseData)
+
       if (!response.ok) {
-        throw new Error('Failed to send notification')
+        console.error('API error:', responseData)
+        throw new Error(responseData.message || 'Failed to send notification')
       }
 
+      console.log('Email notification sent successfully:', responseData)
+      
       // Proceed to verification step
       onNext()
     } catch (error) {
-      console.error('Error sending notification:', error)
+      console.error('Error in handleVerifyPayment:', error)
+      
+      // Show user-friendly error message but still proceed
+      alert('Note: Email notification may have failed to send, but you can still proceed. Our team will manually check for your payment.')
+      
       // Still proceed to verification step even if email fails
       onNext()
     } finally {
