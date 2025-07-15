@@ -9,119 +9,117 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const { userInfo, paymentInfo } = req.body
 
-    // Validate request data
+    // Enhanced validation with detailed logging
     if (!userInfo || !paymentInfo) {
-      console.error('Missing required data:', { userInfo: !!userInfo, paymentInfo: !!paymentInfo })
-      return res.status(400).json({ success: false, message: 'Missing required data' })
+      console.error('Missing required data:', { 
+        hasUserInfo: !!userInfo, 
+        hasPaymentInfo: !!paymentInfo,
+        userInfo,
+        paymentInfo 
+      })
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Missing required data - userInfo and paymentInfo are required' 
+      })
     }
+
+    // Validate userInfo fields
+    const requiredUserFields = ['name', 'email', 'selectedPlan']
+    const missingUserFields = requiredUserFields.filter(field => !userInfo[field])
+    
+    if (missingUserFields.length > 0) {
+      console.error('Missing user fields:', missingUserFields, 'UserInfo:', userInfo)
+      return res.status(400).json({ 
+        success: false, 
+        message: `Missing required user fields: ${missingUserFields.join(', ')}` 
+      })
+    }
+
+    // Validate paymentInfo fields
+    const requiredPaymentFields = ['method', 'address', 'amount']
+    const missingPaymentFields = requiredPaymentFields.filter(field => !paymentInfo[field])
+    
+    if (missingPaymentFields.length > 0) {
+      console.error('Missing payment fields:', missingPaymentFields, 'PaymentInfo:', paymentInfo)
+      return res.status(400).json({ 
+        success: false, 
+        message: `Missing required payment fields: ${missingPaymentFields.join(', ')}` 
+      })
+    }
+
+    // Log successful validation
+    console.log('✅ Data validation passed:', {
+      userInfo: {
+        name: userInfo.name,
+        email: userInfo.email,
+        phone: userInfo.phone || 'not provided',
+        selectedPlan: userInfo.selectedPlan
+      },
+      paymentInfo: {
+        method: paymentInfo.method,
+        amount: paymentInfo.amount,
+        address: paymentInfo.address?.substring(0, 10) + '...'
+      }
+    })
 
     // Log environment variables (without exposing password)
     console.log('Email config check:', {
       email: process.env.NOTIFICATION_EMAIL,
       hasPassword: !!process.env.NOTIFICATION_PASSWORD,
       passwordLength: process.env.NOTIFICATION_PASSWORD?.length,
-      passwordFirstChars: process.env.NOTIFICATION_PASSWORD?.substring(0, 4) + '...'
+      passwordFormat: process.env.NOTIFICATION_PASSWORD?.includes(' ') ? 'with_spaces' : 'no_spaces'
     })
 
-    // Create transporter with multiple configuration attempts
-    const transporterConfigs = [
-      // Primary Gmail configuration
-      {
-        name: 'Gmail SMTP',
-        config: {
-          service: 'gmail',
-          host: 'smtp.gmail.com',
-          port: 587,
-          secure: false,
-          auth: {
-            user: process.env.NOTIFICATION_EMAIL,
-            pass: process.env.NOTIFICATION_PASSWORD
-          },
-          tls: {
-            rejectUnauthorized: false
-          }
-        }
+    // Create transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.NOTIFICATION_EMAIL,
+        pass: process.env.NOTIFICATION_PASSWORD
       },
-      // Alternative Gmail configuration
-      {
-        name: 'Gmail Alternative',
-        config: {
-          host: 'smtp.gmail.com',
-          port: 465,
-          secure: true,
-          auth: {
-            user: process.env.NOTIFICATION_EMAIL,
-            pass: process.env.NOTIFICATION_PASSWORD
-          },
-          tls: {
-            rejectUnauthorized: false
-          }
-        }
+      tls: {
+        rejectUnauthorized: false
       }
-    ]
+    })
 
-    let transporter: nodemailer.Transporter | null = null
-    let transporterUsed = ''
+    // Test connection
+    console.log('🔌 Testing SMTP connection...')
+    await transporter.verify()
+    console.log('✅ SMTP connection verified')
 
-    // Try each configuration
-    for (const { name, config } of transporterConfigs) {
-      try {
-        console.log(`Attempting ${name} configuration...`)
-        const testTransporter = nodemailer.createTransport(config)
-        
-        // Test connection with timeout
-        await Promise.race([
-          testTransporter.verify(),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 10000))
-        ])
-        
-        console.log(`✅ ${name} connection verified successfully`)
-        transporter = testTransporter
-        transporterUsed = name
-        break
-      } catch (verifyError) {
-        console.log(`❌ ${name} failed:`, {
-          error: verifyError instanceof Error ? verifyError.message : verifyError,
-          code: verifyError instanceof Error && 'code' in verifyError ? (verifyError as any).code : 'unknown'
-        })
-        continue
-      }
-    }
-
-    // If all configurations failed, try to send anyway (some SMTP servers don't support verify)
-    if (!transporter) {
-      console.log('All SMTP verifications failed, creating transporter without verification...')
-      transporter = nodemailer.createTransport(transporterConfigs[0].config)
-      transporterUsed = 'Gmail SMTP (unverified)'
-    }
-
-    // Get plan name
+    // Get plan name safely
     const planName = userInfo.selectedPlan === 'demo' ? 'Demo License ($15)' : 
                      userInfo.selectedPlan === '2year' ? '2-Year License ($3,000)' : 
-                     'Lifetime License ($5,000)'
+                     userInfo.selectedPlan === 'lifetime' ? 'Lifetime License ($5,000)' :
+                     `Unknown Plan (${userInfo.selectedPlan})`
 
-    // Get payment method name
-    const paymentMethodName = paymentInfo.method === 'usdt' ? 'USDT (TRC20)' : 'Bitcoin (BTC)'
+    // Get payment method name safely
+    const paymentMethodName = paymentInfo.method === 'usdt' ? 'USDT (TRC20)' : 
+                             paymentInfo.method === 'btc' ? 'Bitcoin (BTC)' :
+                             `Unknown Method (${paymentInfo.method})`
 
-    // Email content
+    // Create email content safely
     const emailContent = `
 🚨 NEW PAYMENT VERIFICATION REQUEST
 
 Customer Details:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-👤 Name: ${userInfo.name}
-📧 Email: ${userInfo.email}  
-📱 Phone: ${userInfo.phone}
+👤 Name: ${userInfo.name || 'Not provided'}
+📧 Email: ${userInfo.email || 'Not provided'}  
+📱 Phone: ${userInfo.phone || 'Not provided'}
 
 Order Details:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📦 License Plan: ${planName}
 💳 Payment Method: ${paymentMethodName}
-💰 Amount: ${paymentInfo.amount} ${paymentInfo.method.toUpperCase()}
+💰 Amount: ${paymentInfo.amount || 'Not specified'} ${(paymentInfo.method || 'unknown').toUpperCase()}
 
 Payment Address Used:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${paymentInfo.address}
+${paymentInfo.address || 'Not provided'}
 
 ⏰ Timestamp: ${new Date().toLocaleString()}
 
@@ -132,84 +130,52 @@ Action Required: Please verify the payment on the blockchain and process the lic
     const mailOptions = {
       from: `"USDTFlasherPro" <${process.env.NOTIFICATION_EMAIL}>`,
       to: process.env.NOTIFICATION_EMAIL,
-      subject: `🔔 New Payment Verification - ${userInfo.name} - ${planName}`,
+      subject: `🔔 New Payment Verification - ${userInfo.name || 'Unknown'} - ${planName}`,
       text: emailContent,
       html: emailContent.replace(/\n/g, '<br>').replace(/━/g, '─')
     }
 
-    console.log(`Attempting to send email using ${transporterUsed}...`)
+    console.log('📤 Sending email...')
 
-    // Send email with retry mechanism
-    let emailResult: nodemailer.SentMessageInfo | null = null
-    let sendAttempts = 0
-    const maxAttempts = 2
-
-    while (sendAttempts < maxAttempts && !emailResult) {
-      try {
-        sendAttempts++
-        console.log(`Email send attempt ${sendAttempts}/${maxAttempts}`)
-        
-        const result = await Promise.race([
-          transporter.sendMail(mailOptions),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Send timeout')), 30000))
-        ]) as nodemailer.SentMessageInfo
-        
-        emailResult = result
-        
-        console.log('✅ Email sent successfully:', {
-          messageId: emailResult.messageId,
-          response: emailResult.response,
-          transporterUsed
-        })
-        break
-        
-      } catch (sendError) {
-        console.log(`❌ Email send attempt ${sendAttempts} failed:`, {
-          error: sendError instanceof Error ? sendError.message : sendError,
-          stack: sendError instanceof Error ? sendError.stack : undefined
-        })
-        
-        if (sendAttempts >= maxAttempts) {
-          throw sendError
-        }
-        
-        // Wait before retry
-        await new Promise(resolve => setTimeout(resolve, 2000))
-      }
-    }
+    // Send email
+    const result = await transporter.sendMail(mailOptions)
+    
+    console.log('✅ Email sent successfully:', {
+      messageId: result.messageId,
+      response: result.response
+    })
 
     res.status(200).json({ 
       success: true, 
       message: 'Notification sent successfully',
-      messageId: emailResult?.messageId || 'unknown',
-      transporterUsed
+      messageId: result.messageId || 'unknown'
     })
 
   } catch (error) {
-    console.error('❌ Final error sending notification:', {
+    console.error('❌ Error in send-notification API:', {
       error: error instanceof Error ? {
         name: error.name,
         message: error.message,
-        stack: error.stack,
-        code: 'code' in error ? (error as any).code : undefined
+        stack: error.stack
       } : error,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      requestBody: req.body
     })
     
-    // More specific error messages for troubleshooting
+    // More specific error messages
     let errorMessage = 'Failed to send notification'
     let troubleshootingTip = ''
     
     if (error instanceof Error) {
-      if (error.message.includes('Invalid login')) {
+      if (error.message.includes('Invalid login') || error.message.includes('EAUTH')) {
         errorMessage = 'Gmail authentication failed'
-        troubleshootingTip = 'Check if 2FA is enabled and app password is correct'
+        troubleshootingTip = 'Check Gmail app password configuration'
       } else if (error.message.includes('ECONNREFUSED') || error.message.includes('ETIMEDOUT')) {
         errorMessage = 'Could not connect to Gmail servers'
-        troubleshootingTip = 'Check internet connection and firewall settings'
-      } else if (error.message.includes('EAUTH')) {
-        errorMessage = 'Gmail authentication error'
-        troubleshootingTip = 'Regenerate Gmail app password and update .env.local'
+        troubleshootingTip = 'Check internet connection'
+      } else if (error.message.includes('Missing required')) {
+        errorMessage = error.message
+        troubleshootingTip = 'Ensure all form fields are filled'
       }
     }
     

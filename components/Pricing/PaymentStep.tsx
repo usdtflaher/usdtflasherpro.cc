@@ -64,16 +64,40 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
     setIsVerifying(true)
     
     try {
-      // Update payment info
+      // Validate required fields before sending
+      if (!userInfo.name || !userInfo.email || !userInfo.selectedPlan) {
+        throw new Error('Please ensure all user information is complete before verifying payment.')
+      }
+
+      if (!selectedMethod.address || !paymentAmount) {
+        throw new Error('Payment information is incomplete. Please refresh and try again.')
+      }
+
+      // Update payment info with current values
       const updatedPaymentInfo = {
-        ...paymentInfo,
+        method: paymentInfo.method,
         address: selectedMethod.address,
         amount: paymentAmount
       }
       
       setPaymentInfo(updatedPaymentInfo)
 
-      console.log('Sending notification with data:', { userInfo, paymentInfo: updatedPaymentInfo })
+      // Prepare clean data for API
+      const requestData = {
+        userInfo: {
+          name: userInfo.name.trim(),
+          email: userInfo.email.trim(),
+          phone: userInfo.phone?.trim() || '',
+          selectedPlan: userInfo.selectedPlan
+        },
+        paymentInfo: {
+          method: paymentInfo.method,
+          address: selectedMethod.address,
+          amount: paymentAmount
+        }
+      }
+
+      console.log('Sending notification with data:', requestData)
 
       // Send notification email
       const response = await fetch('/api/send-notification', {
@@ -81,10 +105,7 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          userInfo,
-          paymentInfo: updatedPaymentInfo
-        })
+        body: JSON.stringify(requestData)
       })
 
       console.log('API response status:', response.status)
@@ -94,7 +115,7 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
 
       if (!response.ok) {
         console.error('API error:', responseData)
-        throw new Error(responseData.message || 'Failed to send notification')
+        throw new Error(responseData.message || responseData.error || 'Failed to send notification')
       }
 
       console.log('Email notification sent successfully:', responseData)
@@ -104,8 +125,10 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
     } catch (error) {
       console.error('Error in handleVerifyPayment:', error)
       
-      // Show user-friendly error message but still proceed
-      alert('Note: Email notification may have failed to send, but you can still proceed. Our team will manually check for your payment.')
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+      
+      // Show specific error message
+      alert(`Error: ${errorMessage}\n\nYou can still proceed, and our team will manually check for your payment.`)
       
       // Still proceed to verification step even if email fails
       onNext()
