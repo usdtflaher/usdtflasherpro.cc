@@ -53,7 +53,7 @@ async function testEmailConnection() {
     console.log(`\n🔄 Testing ${name}...`);
     
     try {
-      const transporter = nodemailer.createTransporter(config);
+      const transporter = nodemailer.createTransport(config);
       
       // Test connection
       console.log('   Verifying connection...');
