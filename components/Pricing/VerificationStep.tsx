@@ -1,7 +1,19 @@
 import { motion } from 'framer-motion'
 import { CheckCircle, Clock, ArrowLeft } from 'lucide-react'
+import { useEffect } from 'react'
 
 const VerificationStep = () => {
+  // Track conversion when user reaches verification step
+  useEffect(() => {
+    // Google Analytics conversion tracking
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-16955353742/5GlrCOrbirAaEI7V-JQ_',
+        'value': 1.0,
+        'currency': 'USD'
+      });
+    }
+  }, []);
 
   return (
     <motion.div
