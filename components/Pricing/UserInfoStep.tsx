@@ -14,46 +14,78 @@ const UserInfoStep = ({ userInfo, setUserInfo, onNext }: UserInfoStepProps) => {
 
   const plans = [
     {
-      id: 'demo',
-      name: 'Demo License',
-      price: '$15',
+      id: 'starter',
+      name: 'Starter Plan',
+      price: '$500',
+      duration: '1 Month',
       features: [
-        'Max flash amount: $40 one time',
+        'Max flash amount: $5,000 daily',
         'Flash fully tradable USDT',
         'Swappable/spendable funds',
         '300-day lifespan',
         'Multi-exchange support',
         'P2P compatibility',
-        'Regular updates'
+        'Email support'
       ]
     },
     {
-      id: '2year',
-      name: '2-Year License',
-      price: '$3,000',
+      id: 'basic',
+      name: 'Basic Plan',
+      price: '$1,000',
+      duration: '1 Month',
       features: [
+        'Max flash amount: $10,000 daily',
         'Flash fully tradable USDT',
         'Swappable/spendable funds',
         '300-day lifespan',
         'Multi-exchange support',
         'P2P compatibility',
-        'Regular updates',
+        'Priority email support'
+      ]
+    },
+    {
+      id: 'professional',
+      name: 'Professional Plan',
+      price: '$1,500',
+      duration: '1 Year',
+      features: [
+        'Max flash amount: $10,000 daily',
+        'Flash fully tradable USDT',
+        'Swappable/spendable funds',
+        '300-day lifespan',
+        'Multi-exchange support',
+        'P2P compatibility',
         'Priority support'
+      ]
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise Plan',
+      price: '$2,500',
+      duration: '1 Year',
+      features: [
+        'Max flash amount: $20,000,000 daily',
+        'Flash fully tradable USDT',
+        'Swappable/spendable funds',
+        '300-day lifespan',
+        'Multi-exchange support',
+        'P2P compatibility',
+        'Premium support & training'
       ]
     },
     {
       id: 'lifetime',
       name: 'Lifetime License',
       price: '$5,000',
+      duration: 'Lifetime',
       features: [
+        'Unlimited flash amounts',
         'Flash fully tradable USDT',
         'Swappable/spendable funds',
         '300-day lifespan',
         'Multi-exchange support',
         'P2P compatibility',
-        'Regular updates',
-        'Priority support',
-        'Lifetime access'
+        'Lifetime updates & support'
       ]
     }
   ]
@@ -115,7 +147,7 @@ const UserInfoStep = ({ userInfo, setUserInfo, onNext }: UserInfoStepProps) => {
           <label className="block text-sm font-medium text-text-primary mb-4">
             Select Your License Plan
           </label>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
             {plans.map((plan) => (
               <div
                 key={plan.id}
@@ -126,9 +158,12 @@ const UserInfoStep = ({ userInfo, setUserInfo, onNext }: UserInfoStepProps) => {
                 }`}
                 onClick={() => handleInputChange('selectedPlan', plan.id)}
               >
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="font-semibold text-text-primary">{plan.name}</h3>
-                  <span className="text-primary font-bold">{plan.price}</span>
+                <div className="flex flex-col mb-2">
+                  <div className="flex items-center justify-between mb-1">
+                    <h3 className="font-semibold text-text-primary">{plan.name}</h3>
+                    <span className="text-primary font-bold">{plan.price}</span>
+                  </div>
+                  <span className="text-text-secondary text-xs">{plan.duration}</span>
                 </div>
                 <ul className="text-sm text-text-secondary space-y-1">
                   {plan.features.slice(0, 3).map((feature, index) => (

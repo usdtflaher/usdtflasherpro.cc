@@ -10,61 +10,99 @@ const PricingSection = () => {
 
   const plans = [
     {
-      name: "Demo Version",
-      price: "$15",
-      duration: "One-time",
+      name: "Starter Plan",
+      price: "$500",
+      duration: "1 Month",
       icon: TestTube,
-      description: "Perfect for testing and evaluation",
+      description: "Perfect for beginners and testing",
       features: [
-        "Max flash amount: $40 one time",
+        "Max flash amount: $5,000 daily",
         "Flash fully tradable USDT",
         "Swappable and spendable funds",
         "300-day lifespan per flash",
         "Multi-exchange support",
         "P2P platform compatibility",
-        "Regular updates included"
+        "Email support included"
       ],
       popular: false,
-      buttonText: "Try Demo",
+      buttonText: "Get Starter Plan",
       buttonClass: "btn-secondary"
     },
     {
-      name: "2-Year License",
-      price: "$3,000",
-      duration: "2 Years",
+      name: "Basic Plan",
+      price: "$1,000",
+      duration: "1 Month",
       icon: Zap,
-      description: "Full access with extended validity",
+      description: "Enhanced daily limits for active traders",
       features: [
+        "Max flash amount: $10,000 daily",
         "Flash fully tradable USDT",
         "Swappable and spendable funds",
         "300-day lifespan per flash",
         "Multi-exchange support",
         "P2P platform compatibility",
-        "Priority support",
-        "Regular updates included"
+        "Priority email support"
+      ],
+      popular: false,
+      buttonText: "Get Basic Plan",
+      buttonClass: "btn-secondary"
+    },
+    {
+      name: "Professional Plan",
+      price: "$1,500",
+      duration: "1 Year",
+      icon: Zap,
+      description: "Extended access with good daily limits",
+      features: [
+        "Max flash amount: $10,000 daily",
+        "Flash fully tradable USDT",
+        "Swappable and spendable funds",
+        "300-day lifespan per flash",
+        "Multi-exchange support",
+        "P2P platform compatibility",
+        "Priority support included"
       ],
       popular: true,
-      buttonText: "Get 2-Year License",
+      buttonText: "Get Professional Plan",
       buttonClass: "btn-primary"
+    },
+    {
+      name: "Enterprise Plan",
+      price: "$2,500",
+      duration: "1 Year",
+      icon: Crown,
+      description: "High-volume trading with massive limits",
+      features: [
+        "Max flash amount: $20,000,000 daily",
+        "Flash fully tradable USDT",
+        "Swappable and spendable funds",
+        "300-day lifespan per flash",
+        "Multi-exchange support",
+        "P2P platform compatibility",
+        "Premium support & training"
+      ],
+      popular: false,
+      buttonText: "Get Enterprise Plan",
+      buttonClass: "btn-secondary"
     },
     {
       name: "Lifetime License",
       price: "$5,000",
       duration: "Lifetime",
       icon: Crown,
-      description: "All features included for life",
+      description: "Unlimited access for life",
       features: [
-        "All 2-year license features",
-        "Unlimited usage forever",
-        "Lifetime updates",
-        "Premium support",
-        "Advanced features access",
-        "Multi-device licensing",
-        "Custom configurations"
+        "Unlimited flash amounts",
+        "Flash fully tradable USDT",
+        "Swappable and spendable funds",
+        "300-day lifespan per flash",
+        "Multi-exchange support",
+        "P2P platform compatibility",
+        "Lifetime updates & support"
       ],
       popular: false,
       buttonText: "Get Lifetime Access",
-      buttonClass: "btn-primary"
+      buttonClass: "btn-secondary"
     }
   ]
 
@@ -86,7 +124,7 @@ const PricingSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={index}
