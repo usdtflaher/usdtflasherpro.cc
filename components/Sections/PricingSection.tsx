@@ -10,6 +10,25 @@ const PricingSection = () => {
 
   const plans = [
     {
+      name: "Demo License",
+      price: "$15",
+      duration: "One-time",
+      icon: TestTube,
+      description: "Perfect for testing and evaluation",
+      features: [
+        "Max flash amount: $40 one time",
+        "Flash fully tradable USDT",
+        "Swappable and spendable funds",
+        "300-day lifespan per flash",
+        "Multi-exchange support",
+        "P2P platform compatibility",
+        "Regular updates included"
+      ],
+      popular: false,
+      buttonText: "Try Demo",
+      buttonClass: "btn-secondary"
+    },
+    {
       name: "Starter Plan",
       price: "$500",
       duration: "1 Month",
@@ -124,7 +143,7 @@ const PricingSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
             <motion.div
               key={index}

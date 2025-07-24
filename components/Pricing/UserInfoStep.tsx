@@ -14,6 +14,21 @@ const UserInfoStep = ({ userInfo, setUserInfo, onNext }: UserInfoStepProps) => {
 
   const plans = [
     {
+      id: 'demo',
+      name: 'Demo License',
+      price: '$15',
+      duration: 'One-time',
+      features: [
+        'Max flash amount: $40 one time',
+        'Flash fully tradable USDT',
+        'Swappable/spendable funds',
+        '300-day lifespan',
+        'Multi-exchange support',
+        'P2P compatibility',
+        'Regular updates'
+      ]
+    },
+    {
       id: 'starter',
       name: 'Starter Plan',
       price: '$500',
@@ -147,7 +162,7 @@ const UserInfoStep = ({ userInfo, setUserInfo, onNext }: UserInfoStepProps) => {
           <label className="block text-sm font-medium text-text-primary mb-4">
             Select Your License Plan
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {plans.map((plan) => (
               <div
                 key={plan.id}
