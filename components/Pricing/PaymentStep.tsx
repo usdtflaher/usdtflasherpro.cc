@@ -19,13 +19,13 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
   const paymentMethods = {
     usdt: {
       name: 'USDT (TRC20)',
-      address: 'TE3vqAdb5fNdZ9iuVJtMWcuQNHQyPKGNKT',
+      address: 'TNudmjRuhw29EMfVn7RHf2uEf8Lw9ePRFF',
       icon: DollarSign,
       color: 'text-green-500'
     },
     btc: {
       name: 'Bitcoin (BTC)',
-      address: 'bc1q0htx33u2c9ksc66j02h58qzvr9wxkf2zw3nejd',
+      address: 'bc1qlw4lcq87ue7l4tgn3m3j4ax7q2287hn5jgefqt',
       icon: Bitcoin,
       color: 'text-orange-500'
     }
@@ -33,8 +33,11 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
 
   const planPrices = {
     demo: { usdt: '15', btc: '0.00025' },
-    '2year': { usdt: '3000', btc: '0.05' },
-    'lifetime': { usdt: '5000', btc: '0.083' }
+    starter: { usdt: '500', btc: '0.0084' },
+    basic: { usdt: '1000', btc: '0.0168' },
+    professional: { usdt: '1500', btc: '0.0252' },
+    enterprise: { usdt: '2500', btc: '0.0420' },
+    lifetime: { usdt: '5000', btc: '0.0840' }
   }
 
   const selectedMethod = paymentMethods[paymentInfo.method]
@@ -155,12 +158,18 @@ const PaymentStep = ({ userInfo, paymentInfo, setPaymentInfo, onNext, onPrev }: 
         <div className="flex justify-between items-center">
           <span className="text-text-secondary">
             {userInfo.selectedPlan === 'demo' ? 'Demo License' : 
-             userInfo.selectedPlan === '2year' ? '2-Year License' : 
+             userInfo.selectedPlan === 'starter' ? 'Starter Plan' :
+             userInfo.selectedPlan === 'basic' ? 'Basic Plan' :
+             userInfo.selectedPlan === 'professional' ? 'Professional Plan' :
+             userInfo.selectedPlan === 'enterprise' ? 'Enterprise Plan' :
              'Lifetime License'}
           </span>
           <span className="text-primary font-bold">
             {userInfo.selectedPlan === 'demo' ? '$15' : 
-             userInfo.selectedPlan === '2year' ? '$3,000' : 
+             userInfo.selectedPlan === 'starter' ? '$500' :
+             userInfo.selectedPlan === 'basic' ? '$1,000' :
+             userInfo.selectedPlan === 'professional' ? '$1,500' :
+             userInfo.selectedPlan === 'enterprise' ? '$2,500' :
              '$5,000'}
           </span>
         </div>
