@@ -24,11 +24,7 @@ export default function TermsOfUse() {
                 Please read these terms and conditions carefully before using USDTFlasherPro software
               </p>
               <p className="text-sm text-text-secondary mt-2">
-                Last Updated: {new Date().toLocaleDateString('en-US', { 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
+                Last Updated: January 2025
               </p>
             </div>
 
