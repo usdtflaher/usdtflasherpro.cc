@@ -71,9 +71,9 @@ const PricingSection = () => {
       price: "$1,500",
       duration: "1 Year",
       icon: Zap,
-      description: "Extended access with good daily limits",
+      description: "Extended access with excellent daily limits",
       features: [
-        "Max flash amount: $10,000 daily",
+        "Max flash amount: $1,000,000 daily",
         "Flash fully tradable USDT",
         "Swappable and spendable funds",
         "300-day lifespan per flash",
