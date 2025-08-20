@@ -12,7 +12,7 @@ const Footer = () => {
       { name: 'Documentation', href: '#' },
     ],
     legal: [
-      { name: 'Terms of Use', href: '#' },
+      { name: 'Terms of Use', href: '/terms-of-use' },
       { name: 'Privacy Policy', href: '#' },
       { name: 'Refund Policy', href: '#' },
     ],
@@ -101,21 +101,25 @@ const Footer = () => {
                 <h4 className="text-text-primary font-semibold mb-4">Connect</h4>
                 <div className="flex space-x-4">
                   <a
-                    href="#"
+                    href="https://t.me/usdtflasherpro"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-text-secondary hover:text-primary transition-colors duration-300"
                     aria-label="Telegram"
                   >
                     <MessageCircle size={20} />
                   </a>
                   <a
-                    href="#"
+                    href="https://twitter.com/usdtflasherpro"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-text-secondary hover:text-primary transition-colors duration-300"
                     aria-label="Twitter"
                   >
                     <Twitter size={20} />
                   </a>
                   <a
-                    href="#"
+                    href="mailto:usdtflasherpro@gmail.com"
                     className="text-text-secondary hover:text-primary transition-colors duration-300"
                     aria-label="Email"
                   >
